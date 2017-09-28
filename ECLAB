@@ -1,0 +1,26 @@
+.equ LIST, 0x500
+
+.global _start
+_start:
+	
+	movia r4, LIST
+	ldw r5, 4(r4)
+	addi r6, r4, 8
+	ldw r7, (r6)
+LOOP:
+	subi r5, r5, 1
+	beq r5, r0, DONE
+	addi r6, r6, 4
+	ldw r8, (r6)
+	bge r7, r8, LOOP
+	br LOOP
+DONE:
+	stw r7, (r4)
+STOP:
+	br STOP
+
+	.org 0x500
+RESULT:	.skip 4
+N:	.word 7
+NUMB:	.word 4, 5, 3, 6, 1, 8, 2, 
+	.end
